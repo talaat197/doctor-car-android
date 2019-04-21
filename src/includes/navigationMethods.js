@@ -254,7 +254,7 @@ export const _setSideMenu = () => {
                         children: [{
                             component: {
                                 id: "App",
-                                name: "Dashboard"
+                                name: "Login"
                             }
                         }]
                     }
