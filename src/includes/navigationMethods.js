@@ -6,6 +6,7 @@ import {ICON_COLOR, DEFAULT_COLOR} from "./colors";
 export const screenNames =
     {
         login: {name: 'Login'},
+        profile:{name: 'Profile'},
         dashboard: {name: 'Dashboard', title: 'Dashboard', icon: "ios-analytics", isTab: true},
         course: {name: 'Course', title: 'Course', icon: "ios-book", isTab: true},
         attendance: {name: 'Attendance', title: 'Attendance', icon: "ios-person", isTab: true},
@@ -253,7 +254,7 @@ export const _setSideMenu = () => {
                         children: [{
                             component: {
                                 id: "App",
-                                name: "Login"
+                                name: "Dashboard"
                             }
                         }]
                     }
