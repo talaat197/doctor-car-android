@@ -15,10 +15,9 @@ class AuthScreen extends Component {
      */
     _onLogin =  () => {
         let options = {
-            topBar: getTopBar(this.props.fromScreenName)
+            topBar: getTopBar(screenNames.profile.name)
         };
-
-        _navigateToScreen(this.props.componentId , this.props.fromScreenName , screenNames.login.name  , options , true);
+        _navigateToScreen(this.props.componentId , screenNames.profile.name , options , true);
     };
     _onSignOut = () => {
 

@@ -7,7 +7,6 @@ import {_navigateToScreen, screenNames} from "../../includes/navigationMethods";
 class Inbox extends Component{
     constructor(props)
     {
-
         super(props);
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     }
@@ -16,7 +15,7 @@ class Inbox extends Component{
             topBar:{visible: false},
             bottomTabs:{visible: false}
         };
-        _navigateToScreen(this.props.componentId , screenNames.login.name , screenNames.inbox.name, options , true)
+        _navigateToScreen(this.props.componentId , screenNames.login.name , options , true)
     }
     render(){
         return(
