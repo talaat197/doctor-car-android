@@ -1,39 +1,43 @@
-import {React, StyleSheet} from '../includes/CommonImports';
+import {React, StyleSheet, Component} from '../includes/CommonImports';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {DARK_COLOR, LIGHT_COLOR , SMALL_TEXT_COLOR, BORDER_COLOR} from "../includes/colors";
-import _navigateToScreen from "../includes/navigationMethods";
+import {DARK_COLOR, LIGHT_COLOR, SMALL_TEXT_COLOR, BORDER_COLOR} from "../includes/colors";
+import {getTopBar, screenNames, _navigateToScreen, _closeDrawer} from "../includes/navigationMethods";
+import {Navigation} from "react-native-navigation";
 
-const SideMenu = (props) => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.header_text}>Doctor Car</Text>
-            <View>
-                <TouchableOpacity>
-                    <Text style={styles.links} onPress={()=>_navigateToScreen('Login','Profile')}>Profile</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.links}>Dashboard</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.links}>Daily Cycle History</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.links}>Where Am I ?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.links}>Notification</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.links}>Help Me!</Text>
-                </TouchableOpacity>
+class SideMenu extends Component {
+    _goToScreen = (destination) => {
+        let options = {
+            topBar: getTopBar(screenNames[destination].name),
+        };
+        _navigateToScreen("App", screenNames[destination].name, options, false);
+        _closeDrawer();
+    };
+
+    render() {
+        let elements = Object.keys(screenNames).map(screen => {
+            if(screenNames[screen].isSide)
+            {
+                return (
+                    <TouchableOpacity key={screen} onPress={() => this._goToScreen(screen)}>
+                        <Text style={styles.links}>{screenNames[screen].name}</Text>
+                    </TouchableOpacity>
+                );
+            }
+        });
+        return (
+            <View style={styles.container}>
+                <Text style={styles.header_text}>Doctor Car</Text>
+                <View>
+                    {elements}
+                </View>
+                <View style={styles.footer}>
+                    <Text style={{color: SMALL_TEXT_COLOR, fontSize: 14}}>
+                        Doctor Car is the most stable system that can track your car state instantly
+                    </Text>
+                </View>
             </View>
-            <View style={styles.footer}>
-                <Text style={{color: SMALL_TEXT_COLOR, fontSize: 14}}>
-                    Doctor Car is the most stable system that can track your car state instantly
-                </Text>
-            </View>
-        </View>
-    )
+        )
+    }
 };
 
 const styles = StyleSheet.create({
@@ -54,8 +58,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         padding: 15,
         paddingTop: 25,
-        borderBottomWidth:1,
-        borderBottomColor:BORDER_COLOR
+        borderBottomWidth: 1,
+        borderBottomColor: BORDER_COLOR
     },
     footer: {
         display: "flex",
