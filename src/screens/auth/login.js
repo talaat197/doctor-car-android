@@ -5,7 +5,7 @@ import DefaultButton from "../../components/DefaultButton";
 import {
     _navigateToScreen, getTopBar, screenNames
 } from "../../includes/navigationMethods";
-import {DARK_COLOR, SECOND_MAIN_COLOR} from "../../includes/colors";
+import {DARK_COLOR, SECOND_MAIN_COLOR, SECONDARY_COLOR} from "../../includes/colors";
 
 class AuthScreen extends Component {
     /*
@@ -30,9 +30,6 @@ class AuthScreen extends Component {
                 <FloatingInput label={"Email"} keyboardType={"email-address"}/>
                 <FloatingInput mainStyle={styles.mr_top} label={"Password"} secureTextEntry/>
                 <DefaultButton parentStyle={styles.form_btn} name={"Login"} _onPress={this._onLogin}/>
-                <TouchableOpacity onPress={this._onSignOut}>
-                    <Text style={[styles.sign_out , styles.mr_top]}>Sign Out</Text>
-                </TouchableOpacity>
             </View>
         );
     }
@@ -55,7 +52,7 @@ const styles = StyleSheet.create({
     },
     main_text:{
         fontSize:28,
-        color: DARK_COLOR,
+        color: SECONDARY_COLOR,
         fontFamily: "italic"
     },
     sign_out : {
