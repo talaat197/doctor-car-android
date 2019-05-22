@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet , Image} from 'react-native';
 import {Grid,Col, Card, CardItem, Text, Icon, Left, Body } from 'native-base';
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR,BORDER_COLOR} from "../includes/colors";
+import EditCarModal from "../components/EditCarModal";
 
 const CarDetails = (props) =>
 (
@@ -15,7 +16,7 @@ const CarDetails = (props) =>
                         <Text style={styles.ItemHeaderText}>Car #1</Text>
                     </Col>
                     <Col>
-                        <Text style={styles.editText} primary>Edit</Text>
+                        <EditCarModal car={car}/>
                     </Col>
                 </Grid>
             </CardItem>);
@@ -25,18 +26,37 @@ const CarDetails = (props) =>
                 <Image source={{uri : car.image}} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>);
         
-        car.data.map(item => {
-            carObject.push(
-                <CardItem bordered style={styles.Item}>
-                    <Left>
-                        <Icon active name={item.icon} style={styles.icon}/>
-                        <Body>
-                        <Text style={styles.ItemText}>{item.value}</Text>
-                        <Text style={styles.ItemSmallText}>{item.key}</Text>
-                        </Body>
-                    </Left>
-                </CardItem>);
-        });
+        carObject.push(
+            <CardItem bordered style={styles.Item}>
+                <Left>
+                    <Icon active name="calendar" style={styles.icon}/>
+                    <Body>
+                    <Text style={styles.ItemText}>{car.model}</Text>
+                    <Text style={styles.ItemSmallText}>Model</Text>
+                    </Body>
+                </Left>
+            </CardItem>);
+        carObject.push(
+        <CardItem bordered style={styles.Item}>
+            <Left>
+                <Icon active name="train" style={styles.icon}/>
+                <Body>
+                <Text style={styles.ItemText}>{car.type}</Text>
+                <Text style={styles.ItemSmallText}>Type</Text>
+                </Body>
+            </Left>
+        </CardItem>);
+        carObject.push(
+            <CardItem bordered style={styles.Item}>
+                <Left>
+                    <Icon active name="unlock" style={styles.icon}/>
+                    <Body>
+                    <Text style={styles.ItemText}>{car.number}</Text>
+                    <Text style={styles.ItemSmallText}>Number</Text>
+                    </Body>
+                </Left>
+            </CardItem>);
+
         return (carObject);
     })}
   </Card>

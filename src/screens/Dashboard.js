@@ -9,15 +9,17 @@ export default class Dashboard extends Component {
     return (
     <Container style={styles.Container}>
       <Content>
-        <Module 
-          name={'Water Sensor'} 
-          lastUpdate={'2m ago'} 
+        <Module
+          name={'Water Sensor'}
+          lastUpdate={'2m ago'}
+          waterGraphValue={70}
+          waterHistoryData={[0.2,0.7,0.4,0.3,0.7,0.2,0.7,0.2,0.3,0.4]}
           photo={'https://i.ebayimg.com/images/g/0RsAAOSwfpVZIAw9/s-l300.jpg'}
-          data={[{ value: '100' ,icon :'water'},
+          data={[{ value: '1900' ,icon :'water'},
                 { value: '1000 - 2500' ,icon :'funnel'}]}/>
         <Module
-          name={'XYZ Sensor'} 
-          lastUpdate={'43m ago'} 
+          name={'XYZ Sensor'}
+          lastUpdate={'43m ago'}
           photo={'https://png.pngtree.com/element_our/md/20180514/md_c4084b78f757aa8a8dd44d853eeafb21.jpg'}
           data={[{ value: '100' ,icon :'arrow-round-forward'}, 
                 { value: '200' ,icon :'arrow-round-up'}, 

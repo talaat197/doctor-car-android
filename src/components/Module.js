@@ -1,7 +1,9 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,View} from 'react-native';
 import { Col ,Grid , Row, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR ,BORDER_COLOR} from "../includes/colors";
+import Pie from 'react-native-pie';
+import WaterHistoryGraph from './modals/WaterHistoryGraph';
 
 const Module = (props) =>
 (
@@ -15,13 +17,27 @@ const Module = (props) =>
         </Body>
       </Left>
       <Right>
-        <Button iconLeft success>
-          <Icon active name='filing' />
-          <Text uppercase={false}>History</Text>
-        </Button>   
+        {props.waterHistoryData ? 
+          <WaterHistoryGraph waterHistoryData={props.waterHistoryData}/>
+        : null}
       </Right>
     </CardItem>
-    <CardItem cardBody>
+    <CardItem cardBody style={styles.graphSection}>
+    {props.waterGraphValue ?
+      <View>
+        <Pie
+          radius={70}
+          innerRadius={63}
+          series={[props.waterGraphValue]}
+          colors={[SMALL_TEXT_COLOR]}
+          backgroundColor={DARK_COLOR}
+        />
+        <View style={styles.gauge}>
+          <Text style={styles.gaugeText}>{props.waterGraphValue}%</Text>
+        </View>
+      </View>
+    :null
+    }
     </CardItem>
     <CardItem style={styles.Item}>
       <Grid>
@@ -56,7 +72,23 @@ const styles = StyleSheet.create({
     },
     LastUpdate:{
         color:SMALL_TEXT_COLOR
-    }
+    },
+    graphSection:{
+      backgroundColor:SECONDARY_COLOR,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    gauge: {
+      position: 'absolute',
+      width: 140,
+      height: 140,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    gaugeText: {
+      color: SMALL_TEXT_COLOR,
+      fontSize: 24,
+    },
 });
 
 export default Module;

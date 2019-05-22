@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet , Image , ImageBackground, View} from 'react-native';
-import {Card, CardItem, Text, Icon, Left, Body } from 'native-base';
+import {Grid,Col,Card, CardItem, Text, Icon, Left, Body } from 'native-base';
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR ,BORDER_COLOR} from "../includes/colors";
+import EditProfileInfoModal from "../components/EditProfileInfoModal";
 
 const ProfileInfo = (props) =>
 (
@@ -39,17 +40,43 @@ const ProfileInfo = (props) =>
         </View>
         </ImageBackground>
         </View>
-        {props.data.map((item =>
-            <CardItem bordered style={styles.Item}>
-                <Left>
-                    <Icon active name={item.icon} style={styles.icon}/>
-                    <Body>
-                    <Text style={styles.ItemText}>{item.value}</Text>
-                    <Text style={styles.ItemSmallText}>{item.key}</Text>
-                    </Body>
-                </Left>
-            </CardItem>
-        ))}
+        <CardItem cardHeader style={styles.ItemHeader}>
+            <Grid>
+                <Col>
+                    <Text style={styles.ItemHeaderText}>General Info</Text>
+                </Col>
+                <Col>
+                    <EditProfileInfoModal data={props.data} photo={props.photo}/>
+                </Col>
+            </Grid>
+        </CardItem>
+        <CardItem bordered style={styles.Item}>
+            <Left>
+                <Icon active name="contact" style={styles.icon}/>
+                <Body>
+                <Text style={styles.ItemText}>{props.data.name}</Text>
+                <Text style={styles.ItemSmallText}>Name</Text>
+                </Body>
+            </Left>
+        </CardItem>
+        <CardItem bordered style={styles.Item}>
+            <Left>
+                <Icon active name="call" style={styles.icon}/>
+                <Body>
+                <Text style={styles.ItemText}>{props.data.mobile}</Text>
+                <Text style={styles.ItemSmallText}>Mobile</Text>
+                </Body>
+            </Left>
+        </CardItem>
+        <CardItem bordered style={styles.Item}>
+            <Left>
+                <Icon active name="mail" style={styles.icon}/>
+                <Body>
+                <Text style={styles.ItemText}>{props.data.email}</Text>
+                <Text style={styles.ItemSmallText}>Personal</Text>
+                </Body>
+            </Left>
+        </CardItem>
     </Card>
 );
 
@@ -113,6 +140,12 @@ const styles = StyleSheet.create({
     },
     ItemSmallText:{
         color:SMALL_TEXT_COLOR
+    },
+    ItemHeader:{
+        backgroundColor:DARK_COLOR
+    },
+    ItemHeaderText:{
+        color:LIGHT_COLOR
     }
 });
   
