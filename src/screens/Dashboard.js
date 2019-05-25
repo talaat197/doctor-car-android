@@ -3,8 +3,17 @@ import {StyleSheet} from 'react-native';
 import {Container, Content} from 'native-base';
 import Module from "../components/Module";
 import { DARK_COLOR } from '../includes/colors';
+import {Navigation} from "react-native-navigation";
 
 export default class Dashboard extends Component {
+    constructor(props)
+    {
+        super(props);
+        Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
+    }
+    navigationButtonPressed({ buttonId }) {
+        Navigation.popToRoot(this.props.componentId);
+    }
   render() {
     return (
     <Container style={styles.Container}>

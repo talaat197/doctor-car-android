@@ -4,8 +4,17 @@ import {Container, Content} from 'native-base';
 import ProfileInfo from "../components/ProfileInfo";
 import CarDetails from "../components/CarDetails";
 import { DARK_COLOR } from '../includes/colors';
+import {Navigation} from "react-native-navigation";
 
 export default class Profile extends Component {
+    constructor(props)
+    {
+        super(props);
+        Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
+    }
+    navigationButtonPressed({ buttonId }) {
+        Navigation.popToRoot(this.props.componentId);
+    }
     static navigationOptions = {
         header: null ,
       };
