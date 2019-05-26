@@ -1,7 +1,7 @@
 import {Navigation} from "react-native-navigation";
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ICON_FONT_SIZE} from "./fonts";
-import {ICON_COLOR, DEFAULT_COLOR} from "./colors";
+import {ICON_COLOR, DEFAULT_COLOR, SECOND_MAIN_COLOR, DARK_COLOR, LIGHT_COLOR} from "./colors";
 // screen Names
 export const screenNames =
     {
@@ -289,7 +289,7 @@ export const _closeModal = () => {
 /*
     GET TOP BAR options
     input: top bar title , back button displayed ?
-    output: topbar object
+    output: topBar object
  */
 export const getTopBar = (titleText = null, isBackButton = false , isRightButton = true) => {
     return {
@@ -300,7 +300,10 @@ export const getTopBar = (titleText = null, isBackButton = false , isRightButton
             text: titleText,
             fontSize: 20,
             fontFamily: "bold",
-            color: DEFAULT_COLOR,
+            color: LIGHT_COLOR,
+        },
+        background:{
+          color : DARK_COLOR
         },
         backButton: {
             visible: isBackButton
@@ -310,7 +313,8 @@ export const getTopBar = (titleText = null, isBackButton = false , isRightButton
                 id: 'logout',
                 text: "Logout",
                 fontSize: 18,
-                fontFamily: "bold"
+                fontFamily: "bold",
+                color: LIGHT_COLOR
             }
         ] : null
     }

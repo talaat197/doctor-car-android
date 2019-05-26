@@ -4,8 +4,17 @@ import {Container, Text, Content} from 'native-base';
 import { DARK_COLOR, DEFAULT_COLOR, SMALL_TEXT_COLOR } from '../includes/colors';
 import MapView, { PROVIDER_GOOGLE ,Marker, Polyline} from 'react-native-maps';
 import {mapStyle} from '../includes/mapStyle';
+import {Navigation} from "react-native-navigation";
 
 export default class whereAmI extends Component {
+    constructor(props)
+    {
+        super(props);
+        Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
+    }
+    navigationButtonPressed({ buttonId }) {
+        Navigation.popToRoot(this.props.componentId);
+    }
   render() {
     return (
       <View style={styles.container}>

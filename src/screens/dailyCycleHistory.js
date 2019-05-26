@@ -4,13 +4,22 @@ import {Container} from 'native-base';
 import {SMALL_TEXT_COLOR, DEFAULT_COLOR} from '../includes/colors';
 import MapView, { PROVIDER_GOOGLE ,Marker, Polyline} from 'react-native-maps';
 import {mapStyle} from '../includes/mapStyle';
+import {Navigation} from "react-native-navigation";
 
 export default class dailyCycleHistory extends Component {
-  HistoryLocations=[
-    {coordinate:{latitude: 29.8499966,longitude: 31.333332}, Day:"Today", Time:"1 AM"},
-    {coordinate:{latitude: 29.86687,longitude: 31.31527}, Day:"Yesterday", Time:"3 PM"},
-    {coordinate:{latitude: 29.85471,longitude: 31.34112}, Day:"Today", Time:"1 AM"}
-  ]
+    HistoryLocations=[
+      {coordinate:{latitude: 29.8499966,longitude: 31.333332}, Day:"Today", Time:"1 AM"},
+      {coordinate:{latitude: 29.86687,longitude: 31.31527}, Day:"Yesterday", Time:"3 PM"},
+      {coordinate:{latitude: 29.85471,longitude: 31.34112}, Day:"Today", Time:"1 AM"}
+    ]
+    constructor(props)
+    {
+        super(props);
+        Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
+    }
+    navigationButtonPressed({ buttonId }) {
+        Navigation.popToRoot(this.props.componentId);
+    }
   render() {
     return (
       <View style={styles.container}>
