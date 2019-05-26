@@ -14,13 +14,22 @@ export default class Dashboard extends Component {
           lastUpdate={'2m ago'}
           waterGraphValue={70}
           waterHistoryData={[0.2,0.7,0.4,0.3,0.7,0.2,0.7,0.2,0.3,0.4]}
-          photo={'https://i.ebayimg.com/images/g/0RsAAOSwfpVZIAw9/s-l300.jpg'}
+          photo={require('../assets/water-sensor.png')}
           data={[{ value: '1900' ,icon :'water'},
                 { value: '1000 - 2500' ,icon :'funnel'}]}/>
         <Module
+          name={'GPS'}
+          lastUpdate={'20m ago'}
+          gpsCoordinate={{latitude: 29.8499966,longitude: 31.333332}}
+          gpsDay={"Today"}
+          gpsTime={"2 AM"}
+          photo={require('../assets/gps.png')}
+          data={[{ value: '29.85471' ,icon :'pin'}, 
+                { value: '31.34112' ,icon :'pin'}]}/>
+        <Module
           name={'XYZ Sensor'}
           lastUpdate={'43m ago'}
-          photo={'https://png.pngtree.com/element_our/md/20180514/md_c4084b78f757aa8a8dd44d853eeafb21.jpg'}
+          photo={require('../assets/xyz.png')}
           data={[{ value: '100' ,icon :'arrow-round-forward'}, 
                 { value: '200' ,icon :'arrow-round-up'}, 
                 { value: '100' ,icon :'resize'}]}/>
@@ -32,6 +41,6 @@ export default class Dashboard extends Component {
 
 const styles = StyleSheet.create({
     Container:{
-        backgroundColor:DARK_COLOR
+      backgroundColor:DARK_COLOR
     }
 });

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View , TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View , TouchableOpacity, Image} from 'react-native';
 import FloatingInput from '../../components/FloatInput';
 import DefaultButton from "../../components/DefaultButton";
 import {
     _navigateToScreen, getTopBar, screenNames
 } from "../../includes/navigationMethods";
-import {DARK_COLOR, SECOND_MAIN_COLOR, SECONDARY_COLOR} from "../../includes/colors";
+import {DARK_COLOR, SECOND_MAIN_COLOR, SECONDARY_COLOR,SMALL_TEXT_COLOR} from "../../includes/colors";
 
 class AuthScreen extends Component {
     /*
@@ -25,7 +25,9 @@ class AuthScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.main_text}>Doctor Car</Text>
+                <Image
+                    source={require('../../assets/doctor-car-logo.png')}
+                    />
                 <FloatingInput label={"Email"} keyboardType={"email-address"}/>
                 <FloatingInput mainStyle={styles.mr_top} label={"Password"} secureTextEntry/>
                 <DefaultButton parentStyle={styles.form_btn} name={"Login"} _onPress={this._onLogin}/>
@@ -36,6 +38,7 @@ class AuthScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor:DARK_COLOR,
         alignItems: "center",
         flexDirection: "column",
         justifyContent: "center",
@@ -43,6 +46,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     form_btn: {
+        backgroundColor:SMALL_TEXT_COLOR,
         marginTop: 40,
         flex: 1,
     },
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     },
     main_text:{
         fontSize:28,
-        color: SECONDARY_COLOR,
+        color: 'white',
         fontFamily: "italic"
     },
     sign_out : {

@@ -4,13 +4,15 @@ import { Col ,Grid , Row, Card, CardItem, Thumbnail, Text, Button, Icon, Left, B
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR ,BORDER_COLOR} from "../includes/colors";
 import Pie from 'react-native-pie';
 import WaterHistoryGraph from './modals/WaterHistoryGraph';
+import MapView, { PROVIDER_GOOGLE ,Marker} from 'react-native-maps';
+import {mapStyle} from '../includes/mapStyle';
 
 const Module = (props) =>
 (
   <Card style={styles.Card}>
     <CardItem style={styles.Item}>
       <Left>
-        <Thumbnail source={{uri: props.photo}} />
+        <Thumbnail source={props.photo}/>
         <Body>
           <Text style={styles.ItemText}>{props.name}</Text>
           <Text style={styles.LastUpdate}>{props.lastUpdate}</Text>
@@ -19,6 +21,14 @@ const Module = (props) =>
       <Right>
         {props.waterHistoryData ? 
           <WaterHistoryGraph waterHistoryData={props.waterHistoryData}/>
+        : null}
+        {props.gpsCoordinate ? 
+          <Button iconLeft success onPress={() => {
+             alert('Under Development :)');
+            }}>
+            <Icon active name='filing' />
+            <Text>History</Text>
+          </Button>
         : null}
       </Right>
     </CardItem>
@@ -36,6 +46,27 @@ const Module = (props) =>
           <Text style={styles.gaugeText}>{props.waterGraphValue}%</Text>
         </View>
       </View>
+    :null
+    }
+    {props.gpsCoordinate ?
+      <MapView
+      provider={PROVIDER_GOOGLE}
+      style={styles.map}
+      customMapStyle={mapStyle}
+      region={{
+        latitude: 29.8499966,
+        longitude: 31.333332,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+      }}
+    >
+    <Marker
+      coordinate={props.gpsCoordinate}
+      title={props.gpsDay}
+      description={props.gpsTime}
+      image={require('../assets/car_loc.png')}
+    />
+    </MapView>
     :null
     }
     </CardItem>
@@ -59,7 +90,7 @@ const Module = (props) =>
 const styles = StyleSheet.create({
     Card:{
         borderColor:DARK_COLOR,
-        backgroundColor:DARK_COLOR
+        backgroundColor:DARK_COLOR,
     },
     Icon:{
         color: ICON_COLOR,
@@ -77,6 +108,7 @@ const styles = StyleSheet.create({
       backgroundColor:SECONDARY_COLOR,
       alignItems: 'center',
       justifyContent: 'center',
+      height:200
     },
     gauge: {
       position: 'absolute',
@@ -88,6 +120,9 @@ const styles = StyleSheet.create({
     gaugeText: {
       color: SMALL_TEXT_COLOR,
       fontSize: 24,
+    },
+    map: {
+      ...StyleSheet.absoluteFillObject,
     },
 });
 

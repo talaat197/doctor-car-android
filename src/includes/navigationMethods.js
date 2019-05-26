@@ -298,7 +298,7 @@ export const getTopBar = (titleText = null, isBackButton = false , isRightButton
         animate: true,
         title: {
             text: titleText,
-            fontSize: 24,
+            fontSize: 20,
             fontFamily: "bold",
             color: DEFAULT_COLOR,
         },

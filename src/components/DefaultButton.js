@@ -1,6 +1,6 @@
 import {React , StyleSheet} from '../includes/CommonImports';
 import {Button , Text} from "native-base";
-import {DEFAULT_COLOR, SECONDARY_COLOR} from "../includes/colors";
+import {DEFAULT_COLOR, SECONDARY_COLOR, SMALL_TEXT_COLOR} from "../includes/colors";
 const DefaultButton = (props) =>
 (
     <Button rounded
@@ -13,7 +13,7 @@ const DefaultButton = (props) =>
 
 const styles = StyleSheet.create({
     btn_color:{
-        backgroundColor:SECONDARY_COLOR
+        backgroundColor:SMALL_TEXT_COLOR
     }
 });
 
