@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet , Image} from 'react-native';
 import {Grid,Col, Card, CardItem, Text, Icon, Left, Body } from 'native-base';
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR,BORDER_COLOR} from "../includes/colors";
-import EditCarModal from "../components/EditCarModal";
+import EditCarModal from "../components/modals/EditCarModal";
 
 const CarDetails = (props) =>
 (

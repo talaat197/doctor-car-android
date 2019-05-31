@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet , Image , ImageBackground, View} from 'react-native';
 import {Grid,Col,Card, CardItem, Text, Icon, Left, Body } from 'native-base';
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR ,BORDER_COLOR} from "../includes/colors";
-import EditProfileInfoModal from "../components/EditProfileInfoModal";
+import EditProfileInfoModal from "../components/modals/EditProfileInfoModal";
 
 const ProfileInfo = (props) =>
 (

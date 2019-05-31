@@ -48,14 +48,15 @@ const Module = (props) =>
       </View>
     :null
     }
-    {props.gpsCoordinate ?
+
+    {props.gpsDay ?
       <MapView
       provider={PROVIDER_GOOGLE}
       style={styles.map}
       customMapStyle={mapStyle}
       region={{
-        latitude: 29.8499966,
-        longitude: 31.333332,
+        latitude: props.gpsCoordinate.latitude,
+        longitude: props.gpsCoordinate.longitude,
         latitudeDelta: 0.015,
         longitudeDelta: 0.0121,
       }}

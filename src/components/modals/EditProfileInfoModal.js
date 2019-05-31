@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Modal, TouchableHighlight, View, Image ,StyleSheet} from 'react-native';
 import {Text} from 'native-base';
-import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR,BORDER_COLOR} from "../includes/colors";
-import DefaultFormField from "../components/DefaultFormField";
+import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR,BORDER_COLOR} from "../../includes/colors";
+import DefaultFormField from "../DefaultFormField";
 
 export default class EditProfileInfoModal extends Component {
     state = {

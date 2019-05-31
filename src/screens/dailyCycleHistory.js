@@ -5,24 +5,38 @@ import {SMALL_TEXT_COLOR, DEFAULT_COLOR} from '../includes/colors';
 import MapView, { PROVIDER_GOOGLE ,Marker, Polyline} from 'react-native-maps';
 import {mapStyle} from '../includes/mapStyle';
 import {Navigation} from "react-native-navigation";
+import {GetRequest} from "../http/HttpRequest";
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class dailyCycleHistory extends Component {
-    HistoryLocations=[
-      {coordinate:{latitude: 29.8499966,longitude: 31.333332}, Day:"Today", Time:"1 AM"},
-      {coordinate:{latitude: 29.86687,longitude: 31.31527}, Day:"Yesterday", Time:"3 PM"},
-      {coordinate:{latitude: 29.85471,longitude: 31.34112}, Day:"Today", Time:"1 AM"}
-    ]
     constructor(props)
     {
         super(props);
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
+        this.state={loading:true, gpsCycle:null};
     }
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
     }
+
+    componentDidMount() {
+      GetRequest("http://postman-echo.com/get", null, this._setGpsCycleData);
+    }
+
+    _setGpsCycleData = (data) =>
+    {
+      this.setState({gpsCycle:[
+        {coordinate:{latitude: 29.8499966,longitude: 31.333332}, Day:"Today", Time:"1 AM"},
+        {coordinate:{latitude: 29.86687,longitude: 31.31527}, Day:"Yesterday", Time:"3 PM"},
+        {coordinate:{latitude: 29.85471,longitude: 31.34112}, Day:"Today", Time:"1 AM"}
+      ]});
+
+      this.setState({loading:false});
+    };
   render() {
     return (
       <View style={styles.container}>
+      {this.state.gpsCycle ?
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
@@ -35,11 +49,11 @@ export default class dailyCycleHistory extends Component {
           }}
         >
         <Polyline
-        coordinates={this.HistoryLocations.map(function(loc) { return loc.coordinate; })}
+        coordinates={this.state.gpsCycle.map(function(loc) { return loc.coordinate; })}
         strokeWidth={5}
         strokeColor={SMALL_TEXT_COLOR}
         />
-        {this.HistoryLocations.map(function(loc){
+        {this.state.gpsCycle.map(function(loc){
           return(
           <Marker
             coordinate={loc.coordinate}
@@ -49,6 +63,8 @@ export default class dailyCycleHistory extends Component {
           );
         })}
         </MapView>
+        :null}
+        <Spinner visible={this.state.loading} color={SMALL_TEXT_COLOR} animation="fade" cancelable={true} />
       </View>
     );
   }

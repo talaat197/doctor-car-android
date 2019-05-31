@@ -1,5 +1,5 @@
 import {React, StyleSheet, Component} from '../includes/CommonImports';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {DARK_COLOR, LIGHT_COLOR, SMALL_TEXT_COLOR, BORDER_COLOR} from "../includes/colors";
 import {getTopBar, screenNames, _navigateToScreen, _closeDrawer} from "../includes/navigationMethods";
 import {Navigation} from "react-native-navigation";
@@ -26,7 +26,9 @@ class SideMenu extends Component {
         });
         return (
             <View style={styles.container}>
-                <Text style={styles.header_text}>Doctor Car</Text>
+                <Image
+                    source={require('../assets/doctor-car-logo-sidemenu.png')}
+                    />
                 <View>
                     {elements}
                 </View>
