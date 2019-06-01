@@ -27,8 +27,8 @@ export default class Notification extends Component {
     this.setState({notifications:[
         {name:"New Sensor Added!", description:"we added new sensor for detecting water.",time:"now"},
         {name:"Attention!", description:"You haven't any petrol in car.",time:"30m ago"},
-        {name:"New Sensor Added!", description:"we added new sensor for detecting water.",time:"now"},
-        {name:"Attention!", description:"You haven't any petrol in car.",time:"30m ago"}
+        {name:"New Sensor Removed!", description:"we added new sensor for detecting water.",time:"now"},
+        {name:"Car for sell!", description:"You haven't any petrol in car.",time:"30m ago"}
     ]});
 
     this.setState({loading:false});

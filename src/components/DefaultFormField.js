@@ -6,7 +6,8 @@ const DefaultFormField = (props) =>
     <Item fixedLabel>
       <Icon active name={props.icon_name} style={styles.icon}/>
       <Label style={styles.label}>{props.labelName}</Label>
-      <Input placeholder={props.placeholder} style={styles.input} placeholderTextColor={LIGHT_COLOR}/>
+      <Input placeholder={props.placeholder} style={styles.input} placeholderTextColor={LIGHT_COLOR}
+            onChangeText={props.onChangeText}/>
     </Item>
 );
 

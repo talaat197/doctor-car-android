@@ -3,14 +3,30 @@ import {Modal, TouchableHighlight, View, Image ,StyleSheet} from 'react-native';
 import {Text} from 'native-base';
 import {DARK_COLOR, SECONDARY_COLOR , LIGHT_COLOR , ICON_COLOR , SMALL_TEXT_COLOR,BORDER_COLOR} from "../../includes/colors";
 import DefaultFormField from "../DefaultFormField";
+import {PostRequest} from "../../http/HttpRequest";
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class EditCarModal extends Component {
     state = {
         modalVisible: false,
+        loading:false,
+        model:this.props.car.model,
+        type:this.props.car.type,
+        number:this.props.car.number,
     };
 
     _editCar = () =>
     {
+      //this.props.car.id
+      this.setState({loading:true});
+      PostRequest("https://postman-echo.com/post"
+      ,{model:this.state.model,type:this.state.type,number:this.state.number}
+      ,this._callResponse, "Edited Successfully :)");
+    };
+
+    _callResponse = (data) =>
+    {
+      this.setState({loading:false});
     };
 
     setModalVisible(visible) {
@@ -29,9 +45,13 @@ export default class EditCarModal extends Component {
           }}>
           <View style={styles.container}>
             <View>
-                <DefaultFormField icon_name={'calendar'} labelName="Model" placeholder={this.props.car.model}/>
-                <DefaultFormField icon_name={'train'} labelName="Type" placeholder={this.props.car.type}/>
-                <DefaultFormField icon_name={'unlock'} labelName="Number" placeholder={this.props.car.number}/>
+                <DefaultFormField icon_name={'calendar'} labelName="Model" placeholder={this.props.car.model}
+                onChangeText={(text) => this.setState({model:text})}/>
+                <DefaultFormField icon_name={'train'} labelName="Type" placeholder={this.props.car.type}
+                onChangeText={(text) => this.setState({type:text})}/>
+                <DefaultFormField icon_name={'unlock'} labelName="Number" placeholder={this.props.car.number}
+                onChangeText={(text) => this.setState({number:text})}/>
+
                 <Image source={{uri : this.props.car.image}} style={{height: 200, width: null,marginTop:10}}/>
                 <TouchableHighlight style={styles.fullWidthButton} onPress={this._editCar}>
                     <Text style={styles.buttonText}>Edit</Text>
@@ -46,6 +66,7 @@ export default class EditCarModal extends Component {
 
             </View>
           </View>
+          <Spinner visible={this.state.loading} color={SMALL_TEXT_COLOR} animation="fade" cancelable={true} />
         </Modal>
 
         <Text style={styles.editText} onPress={() => {
