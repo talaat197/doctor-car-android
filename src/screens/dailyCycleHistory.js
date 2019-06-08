@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Container} from 'native-base';
-import {SMALL_TEXT_COLOR, DEFAULT_COLOR} from '../includes/colors';
+import {Container, Footer, FooterTab, Button, Icon, Text, Drawer} from 'native-base';
+import {SMALL_TEXT_COLOR, DEFAULT_COLOR, DARK_COLOR} from '../includes/colors';
 import MapView, { PROVIDER_GOOGLE ,Marker, Polyline} from 'react-native-maps';
 import {mapStyle} from '../includes/mapStyle';
 import {Navigation} from "react-native-navigation";
@@ -14,7 +14,7 @@ export default class dailyCycleHistory extends Component {
     {
         super(props);
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
-        this.state={loading:true, gpsCycle:null};
+        this.state={loading:true, gpsCycle:null, activeTab:0};
     }
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
@@ -22,6 +22,11 @@ export default class dailyCycleHistory extends Component {
     }
 
     componentDidMount() {
+      this._getData(null);
+    }
+
+    _getData = (interval) =>{
+      this.setState({loading:true});
       GetRequest("http://postman-echo.com/get", null, this._setGpsCycleData);
     }
 
@@ -66,6 +71,34 @@ export default class dailyCycleHistory extends Component {
         })}
         </MapView>
         :null}
+        <Footer style={{backgroundColor:DARK_COLOR}}>
+          <FooterTab style={{backgroundColor:DARK_COLOR}} tabActiveBgColor={SMALL_TEXT_COLOR}>
+            <Button vertical active={this.state.activeTab == 0 ? true : false}
+              onPress={() => {
+                this.setState({activeTab:0});
+                this._getData(null);
+              }}>
+              <Icon name="navigate" />
+              <Text>Today</Text>
+            </Button>
+            <Button vertical active={this.state.activeTab == 1 ? true : false}
+              onPress={() => {
+                this.setState({activeTab:1});
+                this._getData(null);
+              }}>
+              <Icon name="albums" />
+              <Text>2 DAYS</Text>
+            </Button>
+            <Button vertical active={this.state.activeTab == 2 ? true : false}
+              onPress={() => {
+                this.setState({activeTab:2});
+                this._getData(null);
+              }}>
+              <Icon name="git-network" />
+              <Text>3 DAYS</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
         <Spinner visible={this.state.loading} color={SMALL_TEXT_COLOR} animation="fade" cancelable={true} />
       </View>
     );
