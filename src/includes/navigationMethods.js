@@ -2,6 +2,8 @@ import {Navigation} from "react-native-navigation";
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ICON_FONT_SIZE} from "./fonts";
 import {ICON_COLOR, DEFAULT_COLOR, SECOND_MAIN_COLOR, DARK_COLOR, LIGHT_COLOR} from "./colors";
+import {_retrieveData} from '../includes/Storage';
+
 // screen Names
 export const screenNames =
     {
@@ -236,35 +238,50 @@ export const _navigateToScreen = (currentScreen, screenName, options = null, isR
     output: none
  */
 export const _setSideMenu = () => {
-    Navigation.setRoot({
-        root: {
-            sideMenu: {
-                id: "sideMenu",
-                left: {
-                    component: {
-                        id: "Drawer",
-                        name: "SideMenu"
-                    }
-                },
-                center: {
-                    stack: {
-                        id: "AppRoot",
-                        children: [{
-                            component: {
-                                id: "App",
-                                name: "Login",
-                                options:{
-                                    topBar:{
-                                        visible: false,
+    let mainScreen = "Login";
+    
+    _retrieveData('api_token').then(key => {
+        Navigation.setRoot({
+            root: {
+                sideMenu: {
+                    id: "sideMenu",
+                    left: {
+                        component: {
+                            id: "Drawer",
+                            name: "SideMenu"
+                        },
+                    },
+                    center: {
+                        stack: {
+                            id: "AppRoot",
+                            children: [{
+                                component: {
+                                    id: "App",
+                                    name: mainScreen,
+                                    options:{
+                                        topBar: {
+                                            visible: false,
+                                            drawBehind: true,
+                                            animate: false,
+                                            layout: {
+                                                backgroundColor: 'transparent',
+                                            }
+                                        },
                                     }
                                 }
-                            }
-                        }]
+                            }]
+                        }
                     }
                 }
             }
+        });
+        if(key!=null && key!= undefined){
+            let options = {
+                topBar: getTopBar(screenNames["profile"].name),
+            };
+            _navigateToScreen("App", screenNames["profile"].name, options, false);
         }
-    });
+    })
 };
 //SHOW MODAL as a screen
 export const _showModal = (screenName) => {

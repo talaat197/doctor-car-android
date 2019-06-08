@@ -4,6 +4,7 @@ import {Container, Text, Content, Form, Textarea , Spinner} from 'native-base';
 import {DARK_COLOR, LIGHT_COLOR, SECOND_MAIN_COLOR, SECONDARY_COLOR} from '../includes/colors';
 import {_navigateToScreen, screenNames} from "../includes/navigationMethods";
 import {Navigation} from "react-native-navigation";
+import {_clearItem} from '../includes/Storage';
 
 export default class HelpMe extends Component {
     constructor(props)
@@ -13,6 +14,7 @@ export default class HelpMe extends Component {
     }
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
+        _clearItem('api_token');
     }
     state = {
         message : "",

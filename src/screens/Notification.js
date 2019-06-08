@@ -5,6 +5,7 @@ import { DARK_COLOR, SECONDARY_COLOR, SMALL_TEXT_COLOR } from '../includes/color
 import {Navigation} from "react-native-navigation";
 import {GetRequest} from "../http/HttpRequest";
 import Spinner from 'react-native-loading-spinner-overlay';
+import {_clearItem} from '../includes/Storage';
 
 export default class Notification extends Component {
     constructor(props)
@@ -16,6 +17,7 @@ export default class Notification extends Component {
 
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
+        _clearItem('api_token');
     }
 
     componentDidMount() {

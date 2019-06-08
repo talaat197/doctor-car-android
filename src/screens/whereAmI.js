@@ -7,6 +7,7 @@ import {mapStyle} from '../includes/mapStyle';
 import {Navigation} from "react-native-navigation";
 import {GetRequest} from "../http/HttpRequest";
 import Spinner from 'react-native-loading-spinner-overlay';
+import {_clearItem} from '../includes/Storage';
 
 export default class whereAmI extends Component {
     constructor(props)
@@ -21,6 +22,7 @@ export default class whereAmI extends Component {
 
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
+        _clearItem('api_token');
     }
 
     componentDidMount() {
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor:DARK_COLOR,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

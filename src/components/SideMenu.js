@@ -17,11 +17,22 @@ class SideMenu extends Component {
         let elements = Object.keys(screenNames).map(screen => {
             if(screenNames[screen].isSide)
             {
-                return (
+                var sideMenuObject = [];
+                sideMenuObject.push(
                     <TouchableOpacity key={screen} onPress={() => this._goToScreen(screen)}>
                         <Text style={styles.links}>{screenNames[screen].name}</Text>
                     </TouchableOpacity>
                 );
+                
+                {screenNames[screen].name === "Dashboard" || screenNames[screen].name === "Where Am I ?" ? 
+                sideMenuObject.push(<View
+                        style={{
+                            borderBottomColor: BORDER_COLOR,
+                            borderBottomWidth: 1,
+                            paddingTop: 15,
+                        }}
+                        />) : null}
+                return sideMenuObject;
             }
         });
         return (
@@ -60,8 +71,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         padding: 15,
         paddingTop: 25,
-        borderBottomWidth: 1,
-        borderBottomColor: BORDER_COLOR
     },
     footer: {
         display: "flex",

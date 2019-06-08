@@ -6,7 +6,9 @@ import Pie from 'react-native-pie';
 import WaterHistoryGraph from './modals/WaterHistoryGraph';
 import MapView, { PROVIDER_GOOGLE ,Marker} from 'react-native-maps';
 import {mapStyle} from '../includes/mapStyle';
-
+import {
+  _navigateToScreen, getTopBar, screenNames
+} from "../includes/navigationMethods";
 const Module = (props) =>
 (
   <Card style={styles.Card}>
@@ -24,7 +26,10 @@ const Module = (props) =>
         : null}
         {props.gpsCoordinate ? 
           <Button iconLeft success onPress={() => {
-             alert('Under Development :)');
+            let options = {
+                topBar: getTopBar(screenNames.dailyCycleHistory.name)
+            };
+            _navigateToScreen("App" , screenNames.dailyCycleHistory.name , options , false);
             }}>
             <Icon active name='filing' />
             <Text>History</Text>
