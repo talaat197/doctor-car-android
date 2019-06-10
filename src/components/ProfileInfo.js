@@ -46,7 +46,7 @@ const ProfileInfo = (props) =>
                     <Text style={styles.ItemHeaderText}>General Info</Text>
                 </Col>
                 <Col>
-                    <EditProfileInfoModal data={props.data} photo={props.photo}/>
+                    <EditProfileInfoModal userData={props.data} photo={props.photo}/>
                 </Col>
             </Grid>
         </CardItem>

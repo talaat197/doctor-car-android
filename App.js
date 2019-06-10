@@ -15,13 +15,13 @@ var PushNotification = require('react-native-push-notification');
  
 _fcmTokenRegistered = (data) =>
 {
-    _storeData('fcm_token',"1");
+    _storeData('fcmToken',"1");
 };
 
 PushNotification.configure({
  
     onRegister: function(token) {
-        _retrieveData('fcm_token').then(key => {
+        _retrieveData('fcmToken').then(key => {
             if(key == undefined){
                 PostRequest("https://evening-taiga-77600.herokuapp.com/api/fcm/register"
                 ,{token:token}

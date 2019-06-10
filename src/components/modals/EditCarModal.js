@@ -17,11 +17,10 @@ export default class EditCarModal extends Component {
 
     _editCar = () =>
     {
-      //this.props.car.id
       this.setState({loading:true});
-      PostRequest("https://postman-echo.com/post"
+      PostRequest("http://evening-taiga-77600.herokuapp.com/api/user/editcar/"+this.props.car.id
       ,{model:this.state.model,type:this.state.type,number:this.state.number}
-      ,this._callResponse, "Edited Successfully :)");
+      ,this._callResponse);
     };
 
     _callResponse = (data) =>
@@ -45,11 +44,11 @@ export default class EditCarModal extends Component {
           }}>
           <View style={styles.container}>
             <View>
-                <DefaultFormField icon_name={'calendar'} labelName="Model" placeholder={this.props.car.model}
+                <DefaultFormField icon_name={'calendar'} labelName="Model" placeholder={this.state.model}
                 onChangeText={(text) => this.setState({model:text})}/>
-                <DefaultFormField icon_name={'train'} labelName="Type" placeholder={this.props.car.type}
+                <DefaultFormField icon_name={'train'} labelName="Type" placeholder={this.state.type}
                 onChangeText={(text) => this.setState({type:text})}/>
-                <DefaultFormField icon_name={'unlock'} labelName="Number" placeholder={this.props.car.number}
+                <DefaultFormField icon_name={'unlock'} labelName="Number" placeholder={this.state.number}
                 onChangeText={(text) => this.setState({number:text})}/>
 
                 <Image source={{uri : this.props.car.image}} style={{height: 200, width: null,marginTop:10}}/>

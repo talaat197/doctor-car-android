@@ -42,34 +42,40 @@ export const GetRequest = (URL, Paramters=null, _SuccessCall, Message) => {
 
 export const PostRequest = (URL, Paramters=null, _ResponseCall=null, Message) => {
 
-    let axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            "Access-Control-Allow-Origin": "*",
-        }
-      };
-
-    axios.post(
-        URL,Paramters,axiosConfig)
+    _retrieveData('api_token').then(key => {
     
-    .then(response => {
-        if(response.data.message != null || response.data.message != ""){
-            displayMessage(response.data.message);
-        }
-        if(Message){
-            displayMessage(Message);
-        }
-        if(_ResponseCall){
-            _ResponseCall(response.data.data);
-        }
-    })
-    .catch(error => {
-        if(error.message){
-            displayMessage(error.message);
-        }
-        if(_ResponseCall){
-            _ResponseCall(error);
-        }
+        const AuthStr = 'Bearer '.concat(key);
+
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization" : AuthStr,
+            }
+        };
+
+        axios.post(
+            URL,Paramters,axiosConfig)
+        
+        .then(response => {
+            if(response.data.message != null || response.data.message != ""){
+                displayMessage(response.data.message);
+            }
+            if(Message){
+                displayMessage(Message);
+            }
+            if(_ResponseCall){
+                _ResponseCall(response.data.data);
+            }
+        })
+        .catch(error => {
+            if(error.message){
+                displayMessage(error.message);
+            }
+            if(_ResponseCall){
+                _ResponseCall(error);
+            }
+        });
     });
 };
 

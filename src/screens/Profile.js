@@ -15,7 +15,7 @@ export default class Profile extends Component {
         super(props);
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
         this.state = {loading:true
-          , data: {name:null,mobile:null,email:null}
+          , userdata: {name:null,mobile:null,email:null}
           , photo:null
           , address:null
           , username:null
@@ -43,13 +43,15 @@ export default class Profile extends Component {
       GetRequest("https://evening-taiga-77600.herokuapp.com/api/user/profile", null, this._setProfileData);
     }
 
-    _setProfileData = (data) =>
+    _setProfileData = (response) =>
     {
-      this.setState({data: {"name":data.user_name, "mobile":data.mobile , "email":data.email}});
-      this.setState({photo: data.cars[0].image});
+      this.state.userdata.name = response.user_name;
+      this.state.userdata.mobile = response.phone;
+      this.state.userdata.email = response.email;
+      this.setState({photo: response.cars[0].image});
       this.setState({address: "Egypt , giza"});
-      this.setState({username: data.user_name});
-      this.setState({cars: data.cars});
+      this.setState({username: response.user_name});
+      this.setState({cars: response.cars});
       this.setState({loading:false});
     };
 
@@ -58,7 +60,7 @@ export default class Profile extends Component {
     <Container style={styles.Container}>
       <Content>
         <ProfileInfo
-        data={this.state.data} 
+        data={this.state.userdata} 
         photo={this.state.photo}
         address={this.state.address}
         username={this.state.username}

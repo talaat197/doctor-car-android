@@ -7,29 +7,34 @@ import {PostRequest} from "../../http/HttpRequest";
 import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class EditProfileInfoModal extends Component {
+    
+    componentWillReceiveProps(props) {
+        this.setState({
+          name:props.userData.name,
+          mobile:props.userData.mobile,
+          email:props.userData.email
+        }); 
+    }
+
     state = {
         modalVisible: false,
         loading:false,
-        name:this.props.data.name,
-        mobile:this.props.data.mobile,
-        email:this.props.data.email
+        name:this.props.userData.name,
+        mobile:this.props.userData.mobile,
+        email:this.props.userData.email
     };
 
     _editProfile = () =>
     {
-        if(this.state.name==null)this.state.name=this.props.data.name;
-        if(this.state.mobile==null)this.state.mobile=this.props.data.mobile;
-        if(this.state.email==null)this.state.email=this.props.data.email;
-
         this.setState({loading:true});
-        PostRequest("https://postman-echo.com/post"
+        PostRequest("http://evening-taiga-77600.herokuapp.com/api/user/edit"
         ,{name:this.state.name, mobile:this.state.mobile, email:this.state.email}
-        ,this._callResponse, "Edited Successfully :)");
+        ,this._callResponse);
     };
 
     _callResponse = (data) =>
     {
-      this.setState({loading:false});
+        this.setState({loading:false});
     };
 
     setModalVisible(visible) {
@@ -48,11 +53,11 @@ export default class EditProfileInfoModal extends Component {
           }}>
           <View style={styles.container}>
             <View>
-                <DefaultFormField icon_name={'contact'} labelName="Name" placeholder={this.props.data.name}
+                <DefaultFormField icon_name={'contact'} labelName="Name" placeholder={this.state.name}
                 onChangeText={(text) => this.setState({name:text})}/>
-                <DefaultFormField icon_name={'call'} labelName="Mobile" placeholder={this.props.data.mobile}
+                <DefaultFormField icon_name={'call'} labelName="Mobile" placeholder={this.state.mobile}
                 onChangeText={(text) => this.setState({mobile:text})}/>
-                <DefaultFormField icon_name={'mail'} labelName="Email" placeholder={this.props.data.email}
+                <DefaultFormField icon_name={'mail'} labelName="Email" placeholder={this.state.email}
                 onChangeText={(text) => this.setState({email:text})}/>
                 
                 <Image source={{uri : this.props.photo}} style={{height: 250, width: null,marginTop:10}}/>
