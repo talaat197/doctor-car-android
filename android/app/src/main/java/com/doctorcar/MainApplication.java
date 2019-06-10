@@ -3,6 +3,7 @@ package com.doctorcar;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.horcrux.svg.SvgPackage;
@@ -41,7 +42,9 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
             new VectorIconsPackage(),
             new AsyncStoragePackage(),
-            new MapsPackage()
+            new MapsPackage(),
+            new MainReactPackage(),
+            new ReactNativePushNotificationPackage()
        );
    }
 

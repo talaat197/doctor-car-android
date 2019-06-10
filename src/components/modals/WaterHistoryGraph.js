@@ -40,7 +40,7 @@ export default class WaterHistoryGraph extends Component {
               var selectedColor = this.getProgressColor(waterValue);
               return(
               <View style={styles.historyBlock}>
-                <Text style={{color:selectedColor}}>20-10-2019 12:00 ({waterValue*1000})</Text>
+                <Text style={{color:selectedColor}}>20-10-2019 12:00 ({waterValue*2500})</Text>
                 <ProgressBarAndroid
                   styleAttr="Horizontal"
                   indeterminate={false}

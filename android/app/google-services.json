@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1071423373831",
+    "firebase_url": "https://picwpost-rms.firebaseio.com",
+    "project_id": "picwpost-rms",
+    "storage_bucket": "picwpost-rms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071423373831:android:d436b7c3a02ff126",
+        "android_client_info": {
+          "package_name": "com.doctorcar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071423373831-4lq3icjovbnbn10p56osfkp87lqj90dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXqRNjpGrla7i1AmCh2TzQFXc6tJcjn8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071423373831-4lq3icjovbnbn10p56osfkp87lqj90dh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

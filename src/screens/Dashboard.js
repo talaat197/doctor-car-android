@@ -33,23 +33,25 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-      GetRequest("http://postman-echo.com/get", null, this._setDashboardData);
+      GetRequest("http://evening-taiga-77600.herokuapp.com/api/user/dashboard", null, this._setDashboardData);
     }
 
     _setDashboardData = (data) =>
     {
-      this.setState({waterSensor:{name:"Water Sensor",
-        lastUpdate:"20m ago",
-        waterGraphValue:70,
-        waterHistoryData:[0.2,0.7,0.4,0.3,0.7,0.2,0.7,0.2,0.3,0.4],
-        minMax:"1000 - 2500"}});
+      this.setState({waterSensor:{name:data[1].waterSensor.name,
+        lastUpdate:data[1].waterSensor.lastUpdate,
+        waterGraphValue:(data[1].waterSensor.waterGraphValue/2500)*100,
+        waterHistoryData:data[1].waterSensor.waterHistoryData,
+        minMax:data[1].waterSensor.minMax}});
 
-      this.setState({gps:{name:"GPS",
-        lastUpdate:"30m ago",
-        gpsCoordinate:{latitude: 29.85471,longitude: 31.34112},
-        time:"1 am",
-        day:"Today"}});
+      this.setState({gps:{name:data[0].gps.name,
+        lastUpdate:data[0].gps.lastUpdate,
+        gpsCoordinate:JSON.parse(data[0].gps.gpsCoordinate),
+        time:data[0].gps.time,
+        day:data[0].gps.day}});
 
+      this.state.gps.gpsCoordinate.latitude = parseFloat(this.state.gps.gpsCoordinate.latitude ,100);
+      this.state.gps.gpsCoordinate.longitude = parseFloat(this.state.gps.gpsCoordinate.longitude ,100);
       this.setState({loading:false});
     };
   render() {

@@ -20,6 +20,14 @@ export default class Profile extends Component {
           , address:null
           , username:null
           , cars:null};
+        
+        Navigation.mergeOptions(this.props.componentId, {
+            sideMenu: {
+            left: {
+                enabled: true
+            }
+            }
+        });
     }
     
     navigationButtonPressed({ buttonId }) {

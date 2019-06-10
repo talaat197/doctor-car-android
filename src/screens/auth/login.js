@@ -21,6 +21,7 @@ class AuthScreen extends Component {
     constructor(props)
     {
         super(props);
+
         Navigation.mergeOptions(this.props.componentId, {
             sideMenu: {
             left: {

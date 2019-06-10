@@ -26,16 +26,18 @@ export default class whereAmI extends Component {
     }
 
     componentDidMount() {
-      GetRequest("http://postman-echo.com/get", null, this._setGpsData);
+      GetRequest("http://evening-taiga-77600.herokuapp.com/api/gps/position", null, this._setGpsData);
     }
 
     _setGpsData = (data) =>
     {
       this.setState({gps:{
-        gpsCoordinate:{latitude: 29.85471,longitude: 31.34112},
-        time:"1 am",
-        day:"Today"}});
-
+        gpsCoordinate:JSON.parse(data.gps.gpsCoordinate),
+        time:data.gps.time,
+        day:data.gps.day}});
+      
+      this.state.gps.gpsCoordinate.latitude = parseFloat(this.state.gps.gpsCoordinate.latitude ,10);
+      this.state.gps.gpsCoordinate.longitude = parseFloat(this.state.gps.gpsCoordinate.longitude ,10);
       this.setState({loading:false});
     };
   render() {
@@ -53,16 +55,6 @@ export default class whereAmI extends Component {
             longitudeDelta: 0.0121,
           }}
         >
-        <Polyline
-        coordinates={
-          [
-            {latitude: 29.8499966,longitude: 31.333332},
-            {latitude: this.state.gps.gpsCoordinate.latitude,longitude: this.state.gps.gpsCoordinate.longitude}
-          ]    
-        }
-        strokeWidth={4}
-        strokeColor={SMALL_TEXT_COLOR}
-        />
         <Marker
           coordinate={{
             latitude: this.state.gps.gpsCoordinate.latitude,
@@ -71,14 +63,6 @@ export default class whereAmI extends Component {
           title={this.state.gps.day}
           description={this.state.gps.time}
           image={require('../../src/assets/car_loc.png')}
-        />
-        <Marker
-          coordinate={{
-            latitude: 29.86687,
-            longitude: 31.31527
-          }}
-          title={"Me"}
-          description={""}
         />
         </MapView>
       :null}

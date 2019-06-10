@@ -22,21 +22,23 @@ export default class dailyCycleHistory extends Component {
     }
 
     componentDidMount() {
-      this._getData(null);
+      this._getData("http://evening-taiga-77600.herokuapp.com/api/gps/values/24");
     }
 
     _getData = (interval) =>{
       this.setState({loading:true});
-      GetRequest("http://postman-echo.com/get", null, this._setGpsCycleData);
+      GetRequest(interval, null, this._setGpsCycleData);
     }
 
     _setGpsCycleData = (data) =>
     {
-      this.setState({gpsCycle:[
-        {coordinate:{latitude: 29.8499966,longitude: 31.333332}, Day:"Today", Time:"1 AM"},
-        {coordinate:{latitude: 29.86687,longitude: 31.31527}, Day:"Yesterday", Time:"3 PM"},
-        {coordinate:{latitude: 29.85471,longitude: 31.34112}, Day:"Today", Time:"1 AM"}
-      ]});
+      data.map((gpsItem) => {
+        gpsItem.gpsCoordinate = JSON.parse(gpsItem.gpsCoordinate);
+        gpsItem.gpsCoordinate.latitude = parseFloat(gpsItem.gpsCoordinate.latitude);
+        gpsItem.gpsCoordinate.longitude = parseFloat(gpsItem.gpsCoordinate.longitude);
+      });
+
+      this.setState({gpsCycle:data});
 
       this.setState({loading:false});
     };
@@ -56,16 +58,16 @@ export default class dailyCycleHistory extends Component {
           }}
         >
         <Polyline
-        coordinates={this.state.gpsCycle.map(function(loc) { return loc.coordinate; })}
+        coordinates={this.state.gpsCycle.map(function(loc) { return loc.gpsCoordinate; })}
         strokeWidth={5}
         strokeColor={SMALL_TEXT_COLOR}
         />
         {this.state.gpsCycle.map(function(loc){
           return(
           <Marker
-            coordinate={loc.coordinate}
-            title={loc.Day}
-            description={loc.Time}
+            coordinate={loc.gpsCoordinate}
+            title={loc.day}
+            description={loc.time}
           />
           );
         })}
@@ -76,7 +78,7 @@ export default class dailyCycleHistory extends Component {
             <Button vertical active={this.state.activeTab == 0 ? true : false}
               onPress={() => {
                 this.setState({activeTab:0});
-                this._getData(null);
+                this._getData("http://evening-taiga-77600.herokuapp.com/api/gps/values/24");
               }}>
               <Icon name="navigate" />
               <Text>Today</Text>
@@ -84,7 +86,7 @@ export default class dailyCycleHistory extends Component {
             <Button vertical active={this.state.activeTab == 1 ? true : false}
               onPress={() => {
                 this.setState({activeTab:1});
-                this._getData(null);
+                this._getData("http://evening-taiga-77600.herokuapp.com/api/gps/values/48");
               }}>
               <Icon name="albums" />
               <Text>2 DAYS</Text>
@@ -92,7 +94,7 @@ export default class dailyCycleHistory extends Component {
             <Button vertical active={this.state.activeTab == 2 ? true : false}
               onPress={() => {
                 this.setState({activeTab:2});
-                this._getData(null);
+                this._getData("http://evening-taiga-77600.herokuapp.com/api/gps/values/72");
               }}>
               <Icon name="git-network" />
               <Text>3 DAYS</Text>
