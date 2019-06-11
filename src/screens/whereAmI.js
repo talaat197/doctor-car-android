@@ -5,9 +5,9 @@ import { DARK_COLOR, DEFAULT_COLOR, SMALL_TEXT_COLOR } from '../includes/colors'
 import MapView, { PROVIDER_GOOGLE ,Marker, Polyline} from 'react-native-maps';
 import {mapStyle} from '../includes/mapStyle';
 import {Navigation} from "react-native-navigation";
-import {GetRequest} from "../http/HttpRequest";
+import {GetRequest , PostRequest} from "../http/HttpRequest";
 import Spinner from 'react-native-loading-spinner-overlay';
-import {_clearItem} from '../includes/Storage';
+import {_clearItem , _retrieveData} from '../includes/Storage';
 
 export default class whereAmI extends Component {
     constructor(props)
@@ -22,7 +22,12 @@ export default class whereAmI extends Component {
 
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
-        _clearItem('api_token');
+        _retrieveData('app_token').then(key => {
+          PostRequest("https://evening-taiga-77600.herokuapp.com/api/user/logout"
+              ,{fcmToken:key}
+              ,null);
+              _clearItem('api_token');
+        });
     }
 
     componentDidMount() {

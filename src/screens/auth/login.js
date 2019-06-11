@@ -34,9 +34,11 @@ class AuthScreen extends Component {
     _onLogin =  () => {
         this.setState({loading:true});
         
-        PostRequest("https://evening-taiga-77600.herokuapp.com/api/login"
-        ,{email:this.state.email,password:this.state.password}
-        ,this._callResponse);
+        _retrieveData('app_token').then(key => {
+            PostRequest("https://evening-taiga-77600.herokuapp.com/api/login"
+            ,{email:this.state.email,password:this.state.password,fcmToken:key}
+            ,this._callResponse);
+        });
     };
 
     _callResponse = (data) =>

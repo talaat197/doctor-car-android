@@ -5,9 +5,9 @@ import ProfileInfo from "../components/ProfileInfo";
 import CarDetails from "../components/CarDetails";
 import { DARK_COLOR, SMALL_TEXT_COLOR } from '../includes/colors';
 import {Navigation} from "react-native-navigation";
-import {GetRequest} from "../http/HttpRequest";
+import {GetRequest , PostRequest} from "../http/HttpRequest";
 import Spinner from 'react-native-loading-spinner-overlay';
-import {_clearItem} from '../includes/Storage';
+import {_clearItem , _retrieveData} from '../includes/Storage';
 
 export default class Profile extends Component {
     constructor(props)
@@ -32,7 +32,12 @@ export default class Profile extends Component {
     
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
-        _clearItem('api_token');
+        _retrieveData('app_token').then(key => {
+          PostRequest("https://evening-taiga-77600.herokuapp.com/api/user/logout"
+              ,{fcmToken:key}
+              ,null);
+              clearItem('api_token');
+        });
     }
 
     static navigationOptions = {

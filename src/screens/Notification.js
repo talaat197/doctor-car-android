@@ -3,9 +3,9 @@ import {StyleSheet, Image} from 'react-native';
 import {Container, Content, Card, CardItem, Text, Body, Right, Left, Thumbnail} from 'native-base';
 import { DARK_COLOR, SECONDARY_COLOR, SMALL_TEXT_COLOR } from '../includes/colors';
 import {Navigation} from "react-native-navigation";
-import {GetRequest} from "../http/HttpRequest";
+import {GetRequest ,PostRequest} from "../http/HttpRequest";
 import Spinner from 'react-native-loading-spinner-overlay';
-import {_clearItem} from '../includes/Storage';
+import {_clearItem , _retrieveData} from '../includes/Storage';
 
 export default class Notification extends Component {
     constructor(props)
@@ -17,7 +17,12 @@ export default class Notification extends Component {
 
     navigationButtonPressed({ buttonId }) {
         Navigation.popToRoot(this.props.componentId);
-        _clearItem('api_token');
+        _retrieveData('app_token').then(key => {
+            PostRequest("https://evening-taiga-77600.herokuapp.com/api/user/logout"
+                ,{fcmToken:key}
+                ,null);
+            _clearItem('api_token');
+        });
     }
 
     componentDidMount() {
